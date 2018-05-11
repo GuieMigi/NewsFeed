@@ -125,27 +125,28 @@ public class Utilities {
             // Convert GUARDIAN_JSON_QUERY String into a JSONObject.
             JSONObject baseJsonObject = new JSONObject(articleJson);
             // Extract “response” JSONArray.
-            JSONArray articleArray = baseJsonObject.getJSONArray("response");
+            JSONObject responseArticleJson = baseJsonObject.getJSONObject("response");
 
-            // Loop through each feature in the array.
-            for (int i = 0; i < articleArray.length(); i++) {
-                // Get earthquake JSONObject at position i.
-                JSONObject currentArticle = articleArray.getJSONObject(i);
+            // Extract “results” JSONArray.
+            JSONArray resultsJsonArray = responseArticleJson.getJSONArray("results");
+            // Loop through each result in the array.
+            for (int i = 0; i < resultsJsonArray.length(); i++) {
+                // Get article JSONObject at position i.
+                JSONObject currentArticle = resultsJsonArray.getJSONObject(i);
                 // For a given article, extract the JSONObject associated with the
                 // key called "results", which represents a list of all properties
                 // for that article.
-                JSONObject articleProperties = currentArticle.getJSONObject("results");
 
                 // Extract “sectionName” for the name of the section.
-                String section = articleProperties.getString("sectionName");
+                String section = currentArticle.getString("sectionName");
                 // Extract “webTitle” for the title of the article.
-                String title = articleProperties.getString("webTitle");
+                String title = currentArticle.getString("webTitle");
                 // Extract “webPublicationDate” for the date of the article.
-                String date = articleProperties.getString("webPublicationDate");
+                String date = currentArticle.getString("webPublicationDate");
                 // Extract "references" for the author of the article.
-                String author = articleProperties.getString("references");
+                String author = currentArticle.getString("references");
                 // Extract "webUrl" for the webpage of the article.
-                String webpage = articleProperties.getString("webUrl");
+                String webpage = currentArticle.getString("webUrl");
 
                 // Create Article java object from section, title, date, author, webpage.
                 Article article = new Article(section, title, date, author, webpage);

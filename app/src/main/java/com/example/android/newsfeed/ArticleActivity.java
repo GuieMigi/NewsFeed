@@ -38,7 +38,8 @@ public class ArticleActivity extends AppCompatActivity implements LoaderManager.
         // Find a reference to the ListView in the layout.
         ListView articleListView = findViewById(R.id.main_activity_listView);
         // Find a reference to the empty state TextView.
-        emptyStateTextView = findViewById(R.id.empty_state_textView);
+        emptyStateTextView = findViewById(R.id.main_activity_empty_state_textView);
+        articleListView.setEmptyView(emptyStateTextView);
         // Create a new adapter that takes an empty list of articles as input.
         articleAdapter = new ArticleAdapter(this, new ArrayList<Article>());
         // Set the adapter on the ListView.
@@ -53,6 +54,7 @@ public class ArticleActivity extends AppCompatActivity implements LoaderManager.
         } else {
             // If there is no network connection hide the ProgressBar and set the "No internet connection available." on the empty state TextView.
             ProgressBar progressBar = findViewById(R.id.main_activity_progressBar);
+            progressBar.setVisibility(View.GONE);
             emptyStateTextView.setText("No internet connection available");
         }
 
@@ -61,7 +63,7 @@ public class ArticleActivity extends AppCompatActivity implements LoaderManager.
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 // Find the current article that was clicked.
                 Article currentArticle = articleAdapter.getItem(position);
-                // Create a new intent to view the earthquake URI.
+                // Create a new intent to view the article URI.
                 Intent openArticleWebsite = new Intent(Intent.ACTION_VIEW);
                 openArticleWebsite.setData(Uri.parse(currentArticle.getArticleWebsite()));
                 startActivity(openArticleWebsite);
@@ -80,8 +82,10 @@ public class ArticleActivity extends AppCompatActivity implements LoaderManager.
         ProgressBar progressBar = findViewById(R.id.main_activity_progressBar);
         progressBar.setVisibility(View.GONE);
 
-        // Set empty state text to display "No earthquakes found."
+        // Set empty state text to display "No articles found."
         emptyStateTextView.setText("No articles found.");
+        // Clear the adapter of previous article data.
+        articleAdapter.clear();
 
         // If there is a valid list of articles, then add them to the adapter's data set.
         if (articles != null && !articles.isEmpty()) {

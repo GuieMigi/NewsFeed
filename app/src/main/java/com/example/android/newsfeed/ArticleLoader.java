@@ -28,7 +28,7 @@ public class ArticleLoader extends AsyncTaskLoader<ArrayList<Article>> {
             return null;
         }
         // Perform the HTTP request for article data and process the response.
-        ArrayList<Article> earthquakes = Utilities.getArticleData(mUrls[0]);
-        return earthquakes;
+        ArrayList<Article> articles = Utilities.getArticleData(mUrls[0]);
+        return articles;
     }
 }

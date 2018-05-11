@@ -31,7 +31,7 @@ public class Article {
     }
 
     // Returns the time in milliseconds for the article.
-    public String getArticleTimeInMilliseconds() {
+    public String getArticleDate() {
         return mDate;
     }
 
