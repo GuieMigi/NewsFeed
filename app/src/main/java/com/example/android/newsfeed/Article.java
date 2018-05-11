@@ -6,16 +6,16 @@ public class Article {
     // The title of the article.
     private String mTitle;
     // The time of the article in milliseconds.
-    private long mTimeInMilliseconds;
+    private String mDate;
     // The author of the article.
     private String mAuthor;
     // The website of the article.
     private String mWebsite;
 
-    public Article(String section, String title, long timeInMilliseconds, String author, String website) {
+    public Article(String section, String title, String date, String author, String website) {
         mSection = section;
         mTitle = title;
-        mTimeInMilliseconds = timeInMilliseconds;
+        mDate = date;
         mAuthor = author;
         mWebsite = website;
     }
@@ -31,8 +31,8 @@ public class Article {
     }
 
     // Returns the time in milliseconds for the article.
-    public long getArticleTimeInMilliseconds() {
-        return mTimeInMilliseconds;
+    public String getArticleTimeInMilliseconds() {
+        return mDate;
     }
 
     // Returns the author of the article.
