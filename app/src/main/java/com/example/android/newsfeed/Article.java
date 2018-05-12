@@ -5,7 +5,7 @@ public class Article {
     private String mSection;
     // The title of the article.
     private String mTitle;
-    // The time of the article in milliseconds.
+    // The date and time of the article.
     private String mDate;
     // The author of the article.
     private String mAuthor;
@@ -30,7 +30,7 @@ public class Article {
         return mTitle;
     }
 
-    // Returns the time in milliseconds for the article.
+    // Returns the date and time of the article.
     public String getArticleDate() {
         return mDate;
     }

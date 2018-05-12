@@ -2,9 +2,11 @@ package com.example.android.newsfeed;
 
 import android.text.TextUtils;
 import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -20,6 +22,7 @@ public class Utilities {
     // Tag for the log messages.
     private static final String LOG_TAG = Utilities.class.getSimpleName();
 
+    // Empty constructor.
     private Utilities() {
     }
 
@@ -29,7 +32,7 @@ public class Utilities {
         // Create URL object.
         URL url = createUrl(requestUrl);
 
-        // Perform HTTP request to the URL and receive a JSON response back.
+        // Perform HTTP request to the URL and receive a JSON response.
         String jsonResponse = null;
         try {
             jsonResponse = makeHttpRequest(url);
@@ -71,8 +74,7 @@ public class Utilities {
             urlConnection.setRequestMethod("GET");
             urlConnection.connect();
 
-            // If the request was successful (response code 200),
-            // then read the input stream and parse the response.
+            // If the request was successful (response code 200 then read the input stream and parse the response.
             if (urlConnection.getResponseCode() == 200) {
                 inputStream = urlConnection.getInputStream();
                 jsonResponse = readFromStream(inputStream);
@@ -116,17 +118,16 @@ public class Utilities {
         // Create an empty ArrayList that we can start adding articles to.
         ArrayList<Article> articles = new ArrayList<>();
 
-        // Try to parse the USGS_JSON_QUERY. If there's a problem with the way the JSON
+        // Try to parse the GUARDIAN_JSON_QUERY. If there's a problem with the way the JSON
         // is formatted, a JSONException exception object will be thrown.
-        // Catch the exception so the app doesn't crash, and print the error message to the logs.
         try {
             // Convert GUARDIAN_JSON_QUERY String into a JSONObject.
             JSONObject baseJsonObject = new JSONObject(articleJson);
-            // Extract “response” JSONArray.
-            JSONObject responseArticleJson = baseJsonObject.getJSONObject("response");
+            // Extract “response” JSON objecy.
+            JSONObject responseJsonObject = baseJsonObject.getJSONObject("response");
 
             // Extract “results” JSONArray.
-            JSONArray resultsJsonArray = responseArticleJson.getJSONArray("results");
+            JSONArray resultsJsonArray = responseJsonObject.getJSONArray("results");
 
             // Loop through each result in the array.
             for (int i = 0; i < resultsJsonArray.length(); i++) {
@@ -137,31 +138,30 @@ public class Utilities {
                 String section = currentArticle.getString("sectionName");
                 // Extract “webTitle” for the title of the article.
                 String title = currentArticle.getString("webTitle");
-                // Extract “webPublicationDate” for the date of the article.
+                // Extract “webPublicationDate” for the date and time of the article.
                 String date = currentArticle.getString("webPublicationDate");
                 // Extract "webUrl" for the webpage of the article.
                 String webpage = currentArticle.getString("webUrl");
 
                 // Extract “tags” JSONArray.
-                JSONArray authorJsonArray = currentArticle.getJSONArray("tags");
+                JSONArray tagsJsonArray = currentArticle.getJSONArray("tags");
 
                 // Loop through each result in the array.
-                for (int j = 0; j < authorJsonArray.length(); j++) {
-                    JSONObject currentArticleAuthor = authorJsonArray.getJSONObject(j);
+                for (int j = 0; j < tagsJsonArray.length(); j++) {
+                    JSONObject currentArticleAuthor = tagsJsonArray.getJSONObject(j);
                     // Extract "webTitle" for the author of the article.
                     String author = currentArticleAuthor.getString("webTitle");
 
-                    // Create Article java object from section, title, date, author, webpage.
+                    // Create Article java object from the section, title, date, author and webpage.
                     Article article = new Article(section, title, date, author, webpage);
-                    // Add article to list of articles.
+                    // Add article to the list of articles.
                     articles.add(article);
                 }
 
             }
         } catch (JSONException e) {
             // If an error is thrown when executing any of the above statements in the "try" block,
-            // catch the exception here, so the app doesn't crash. Print a log message
-            // with the message from the exception.
+            // print a log message with the message from the exception.
             Log.e(LOG_TAG, "Problem parsing the article JSON results", e);
         }
         // Return the list of articles.

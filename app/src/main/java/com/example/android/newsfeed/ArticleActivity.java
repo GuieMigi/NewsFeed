@@ -29,6 +29,8 @@ public class ArticleActivity extends AppCompatActivity implements LoaderManager.
     NetworkInfo networkInfo;
     // Adapter for the list of articles.
     private ArticleAdapter articleAdapter;
+    // ProgressBar in the Main Activity.
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,12 +41,16 @@ public class ArticleActivity extends AppCompatActivity implements LoaderManager.
         ListView articleListView = findViewById(R.id.main_activity_listView);
         // Find a reference to the empty state TextView.
         emptyStateTextView = findViewById(R.id.main_activity_empty_state_textView);
+        // Set the empty state TextView o the ListView.
         articleListView.setEmptyView(emptyStateTextView);
+        // Find a reference to the ProgressBar.
+        progressBar = findViewById(R.id.main_activity_progressBar);
         // Create a new adapter that takes an empty list of articles as input.
         articleAdapter = new ArticleAdapter(this, new ArrayList<Article>());
         // Set the adapter on the ListView.
         articleListView.setAdapter(articleAdapter);
 
+        // Check the state of the connection.
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         networkInfo = connectivityManager.getActiveNetworkInfo();
         if (networkInfo != null && networkInfo.isConnectedOrConnecting()) {
@@ -52,8 +58,7 @@ public class ArticleActivity extends AppCompatActivity implements LoaderManager.
             LoaderManager loaderManager = getLoaderManager();
             loaderManager.initLoader(1, null, ArticleActivity.this);
         } else {
-            // If there is no network connection hide the ProgressBar and set the "No internet connection available." on the empty state TextView.
-            ProgressBar progressBar = findViewById(R.id.main_activity_progressBar);
+            // If there is no network connection hide the ProgressBar and set the "No internet connection available." text on the empty state TextView.
             progressBar.setVisibility(View.GONE);
             emptyStateTextView.setText("No internet connection available");
         }
@@ -79,7 +84,6 @@ public class ArticleActivity extends AppCompatActivity implements LoaderManager.
     @Override
     public void onLoadFinished(Loader<ArrayList<Article>> loader, ArrayList<Article> articles) {
         // Hide the ProgressBar when the background thread has finished loading the data.
-        ProgressBar progressBar = findViewById(R.id.main_activity_progressBar);
         progressBar.setVisibility(View.GONE);
 
         // Set empty state text to display "No articles found."
@@ -95,7 +99,7 @@ public class ArticleActivity extends AppCompatActivity implements LoaderManager.
 
     @Override
     public void onLoaderReset(Loader<ArrayList<Article>> loader) {
-        // Loader reset, so we can clear out our existing data.
+        // Loader reset, so we can clear out the existing data.
         articleAdapter.clear();
 
     }
