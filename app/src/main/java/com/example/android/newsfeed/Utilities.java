@@ -2,11 +2,9 @@ package com.example.android.newsfeed;
 
 import android.text.TextUtils;
 import android.util.Log;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -129,7 +127,7 @@ public class Utilities {
 
             // Extract “results” JSONArray.
             JSONArray resultsJsonArray = responseArticleJson.getJSONArray("results");
-            Log.e(LOG_TAG, "Results Array Length " + resultsJsonArray.length());
+
             // Loop through each result in the array.
             for (int i = 0; i < resultsJsonArray.length(); i++) {
                 // Get article JSONObject at position i.
@@ -146,7 +144,7 @@ public class Utilities {
 
                 // Extract “tags” JSONArray.
                 JSONArray authorJsonArray = currentArticle.getJSONArray("tags");
-                Log.e(LOG_TAG, "Author Array Length " + authorJsonArray.length());
+
                 // Loop through each result in the array.
                 for (int j = 0; j < authorJsonArray.length(); j++) {
                     JSONObject currentArticleAuthor = authorJsonArray.getJSONObject(j);

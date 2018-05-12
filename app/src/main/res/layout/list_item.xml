@@ -10,6 +10,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:layout_gravity="center_vertical"
         android:orientation="vertical">
 
         <TextView
@@ -45,6 +46,13 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             tools:text="24 martie 2018" />
+
+        <TextView
+            android:id="@+id/list_item_article_time_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            tools:text="12:50" />
 
         <TextView
             android:id="@+id/list_item_article_author_name_textView"

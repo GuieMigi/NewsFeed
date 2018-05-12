@@ -40,14 +40,32 @@ public class ArticleAdapter extends ArrayAdapter<Article> {
         titleTextView.setText(currentArticle.getArticleTitle());
         titleTextView.setAllCaps(false);
 
+        // Split the dateTime string into date and time Strings.
+        String dateAndTime = currentArticle.getArticleDate();
+        String date;
+        String time;
+        String unformattedTime;
+        String[] dateAndTimeParts = dateAndTime.split("T");
+        date = dateAndTimeParts[0];
+        unformattedTime = dateAndTimeParts[1];
+        String[] timeParts = unformattedTime.split("Z");
+        time = timeParts[0];
+
         // Find the TextView with view ID list_item_article_date_textView.
         TextView dateTextView = listItemView.findViewById(R.id.list_item_article_date_textView);
         // Display the date of the current article in that TextView
-        dateTextView.setText(currentArticle.getArticleDate());
+        dateTextView.setText(date);
+
+        // Find the TextView with view ID list_item_article_time_textView.
+        TextView timeTextView = listItemView.findViewById(R.id.list_item_article_time_textView);
+        // Display the date of the current article in that TextView.
+        timeTextView.setText(time);
 
         // Find the TextView with view ID list_item_article_author_name_textView.
         TextView authorTextView = listItemView.findViewById(R.id.list_item_article_author_name_textView);
-        authorTextView.setText(currentArticle.getArticleAuthor());
+        if (currentArticle.getArticleAuthor() == null) {
+            authorTextView.setVisibility(View.GONE);
+        } else authorTextView.setText(currentArticle.getArticleAuthor());
         return listItemView;
     }
 }
