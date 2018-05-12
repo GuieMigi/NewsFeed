@@ -22,7 +22,7 @@ public class ArticleActivity extends AppCompatActivity implements LoaderManager.
     // Tag for the log messages.
     private static final String LOG_TAG = ArticleActivity.class.getName();
     //JSON response link for a Guardian api query.
-    private static final String GUARDIAN_JSON_QUERY = "https://content.guardianapis.com/search?&format=json&from-date=2018-05-01&use-date=first-publication&show-references=contributor&total=50&api-key=5dfacf98-e445-40d8-b686-1c3ecb66e8f4";
+    private static final String GUARDIAN_JSON_QUERY = "https://content.guardianapis.com/search?&format=json&from-date=2018-05-12&show-tags=contributor&page-size=50&api-key=5dfacf98-e445-40d8-b686-1c3ecb66e8f4";
     // TextView that is displayed when the list is empty.
     TextView emptyStateTextView;
     // Variable used to check the network state.

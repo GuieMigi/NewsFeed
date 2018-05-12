@@ -129,13 +129,11 @@ public class Utilities {
 
             // Extract “results” JSONArray.
             JSONArray resultsJsonArray = responseArticleJson.getJSONArray("results");
+            Log.e(LOG_TAG, "Results Array Length " + resultsJsonArray.length());
             // Loop through each result in the array.
             for (int i = 0; i < resultsJsonArray.length(); i++) {
                 // Get article JSONObject at position i.
                 JSONObject currentArticle = resultsJsonArray.getJSONObject(i);
-                // For a given article, extract the JSONObject associated with the
-                // key called "results", which represents a list of all properties
-                // for that article.
 
                 // Extract “sectionName” for the name of the section.
                 String section = currentArticle.getString("sectionName");
@@ -143,15 +141,24 @@ public class Utilities {
                 String title = currentArticle.getString("webTitle");
                 // Extract “webPublicationDate” for the date of the article.
                 String date = currentArticle.getString("webPublicationDate");
-                // Extract "references" for the author of the article.
-                String author = currentArticle.getString("references");
                 // Extract "webUrl" for the webpage of the article.
                 String webpage = currentArticle.getString("webUrl");
 
-                // Create Article java object from section, title, date, author, webpage.
-                Article article = new Article(section, title, date, author, webpage);
-                // Add article to list of articles.
-                articles.add(article);
+                // Extract “tags” JSONArray.
+                JSONArray authorJsonArray = currentArticle.getJSONArray("tags");
+                Log.e(LOG_TAG, "Author Array Length " + authorJsonArray.length());
+                // Loop through each result in the array.
+                for (int j = 0; j < authorJsonArray.length(); j++) {
+                    JSONObject currentArticleAuthor = authorJsonArray.getJSONObject(j);
+                    // Extract "webTitle" for the author of the article.
+                    String author = currentArticleAuthor.getString("webTitle");
+
+                    // Create Article java object from section, title, date, author, webpage.
+                    Article article = new Article(section, title, date, author, webpage);
+                    // Add article to list of articles.
+                    articles.add(article);
+                }
+
             }
         } catch (JSONException e) {
             // If an error is thrown when executing any of the above statements in the "try" block,
