@@ -4,11 +4,15 @@ import android.app.LoaderManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -22,7 +26,7 @@ public class ArticleActivity extends AppCompatActivity implements LoaderManager.
     // Tag for the log messages.
     private static final String LOG_TAG = ArticleActivity.class.getName();
     //JSON response link for a Guardian api query.
-    private static final String GUARDIAN_JSON_QUERY = "https://content.guardianapis.com/search?&format=json&from-date=2018-05-12&total=50&show-tags=contributor&page-size=50&api-key=5dfacf98-e445-40d8-b686-1c3ecb66e8f4";
+    private static String guardianJsonQueryLink;
     // TextView that is displayed when the list is empty.
     TextView emptyStateTextView;
     // Variable used to check the network state.
@@ -37,6 +41,8 @@ public class ArticleActivity extends AppCompatActivity implements LoaderManager.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Initialise the String containing the query link.
+        guardianJsonQueryLink = getString(R.string.guardian_query_link);
         // Find a reference to the ListView in the layout.
         ListView articleListView = findViewById(R.id.main_activity_listView);
         // Find a reference to the empty state TextView.
@@ -60,7 +66,7 @@ public class ArticleActivity extends AppCompatActivity implements LoaderManager.
         } else {
             // If there is no network connection hide the ProgressBar and set the "No internet connection available." text on the empty state TextView.
             progressBar.setVisibility(View.GONE);
-            emptyStateTextView.setText("No internet connection available");
+            emptyStateTextView.setText(getString(R.string.no_internet));
         }
 
         articleListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -78,7 +84,31 @@ public class ArticleActivity extends AppCompatActivity implements LoaderManager.
 
     @Override
     public Loader<ArrayList<Article>> onCreateLoader(int i, Bundle bundle) {
-        return new ArticleLoader(ArticleActivity.this, GUARDIAN_JSON_QUERY);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+        // The string that holds the current saved preference for the Number of articles option.
+        // getString retrieves a String value from the preferences. The second parameter is the default value for this preference.
+        String numberOfArticles = sharedPreferences.getString(
+                getString(R.string.settings_number_of_articles_key),
+                getString(R.string.settings_number_of_articles_default));
+
+        // Parse breaks apart the URI string that's passed into its parameter.
+        Uri baseUri = Uri.parse(guardianJsonQueryLink);
+
+        // buildUpon prepares the baseUri that we just parsed so we can add query parameters to it.
+        Uri.Builder uriBuilder = baseUri.buildUpon();
+
+        // Append query parameter and its value. For example, the `format=geojson`.
+        uriBuilder.appendQueryParameter("format", "json");
+        uriBuilder.appendQueryParameter("from-date", "2018-05-12");
+        uriBuilder.appendQueryParameter("total", "500");
+        uriBuilder.appendQueryParameter("show-tags", "contributor");
+        uriBuilder.appendQueryParameter(getString(R.string.settings_number_of_articles_key), numberOfArticles);
+        uriBuilder.appendQueryParameter(getString(R.string.guardian_api_key),
+                getString(R.string.guardian_api_key_value));
+
+        // Return the completed uri.
+        return new ArticleLoader(ArticleActivity.this, uriBuilder.toString());
     }
 
     @Override
@@ -87,7 +117,7 @@ public class ArticleActivity extends AppCompatActivity implements LoaderManager.
         progressBar.setVisibility(View.GONE);
 
         // Set empty state text to display "No articles found."
-        emptyStateTextView.setText("No articles found.");
+        emptyStateTextView.setText(getString(R.string.no_articles));
         // Clear the adapter of previous article data.
         articleAdapter.clear();
 
@@ -101,6 +131,24 @@ public class ArticleActivity extends AppCompatActivity implements LoaderManager.
     public void onLoaderReset(Loader<ArrayList<Article>> loader) {
         // Loader reset, so we can clear out the existing data.
         articleAdapter.clear();
+    }
 
+    @Override
+    // This method initializes the contents of the Activity's options menu.
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the Options Menu we specified in XML
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.article_settings) {
+            Intent settingsIntent = new Intent(this, SettingsActivity.class);
+            startActivity(settingsIntent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

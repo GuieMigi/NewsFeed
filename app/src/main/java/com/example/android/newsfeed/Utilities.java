@@ -118,10 +118,10 @@ public class Utilities {
         // Create an empty ArrayList that we can start adding articles to.
         ArrayList<Article> articles = new ArrayList<>();
 
-        // Try to parse the GUARDIAN_JSON_QUERY. If there's a problem with the way the JSON
+        // Try to parse the guardianJsonQueryLink. If there's a problem with the way the JSON
         // is formatted, a JSONException exception object will be thrown.
         try {
-            // Convert GUARDIAN_JSON_QUERY String into a JSONObject.
+            // Convert guardianJsonQueryLink String into a JSONObject.
             JSONObject baseJsonObject = new JSONObject(articleJson);
             // Extract “response” JSON objecy.
             JSONObject responseJsonObject = baseJsonObject.getJSONObject("response");
@@ -147,7 +147,7 @@ public class Utilities {
                 JSONArray tagsJsonArray = currentArticle.getJSONArray("tags");
 
                 // Loop through each result in the array.
-                for (int j = 0; j < tagsJsonArray.length(); j++) {
+                for (int j = 0; j < 1; j++) {
                     JSONObject currentArticleAuthor = tagsJsonArray.getJSONObject(j);
                     // Extract "webTitle" for the author of the article.
                     String author = currentArticleAuthor.getString("webTitle");

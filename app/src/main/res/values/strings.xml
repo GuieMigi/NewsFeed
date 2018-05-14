@@ -1,3 +1,33 @@
 <resources>
     <string name="app_name">News Feed</string>
+    <string name="no_internet">No internet connection available</string>
+    <string name="no_articles">No articles found that match the selected preferences. Use settings to change your filters.</string>
+    <string name="guardian_query_link">https://content.guardianapis.com/search</string>
+
+    <!-- The Guardian API query key -->
+    <string name="guardian_api_key">api-key</string>
+    <string name="guardian_api_key_value">5dfacf98-e445-40d8-b686-1c3ecb66e8f4</string>
+    <!-- Settings Menu Item [CHAR LIMIT=NONE] -->
+    <string name="settings_menu_item">Settings</string>
+    <!-- Settings Activity Title [CHAR LIMIT=NONE] -->
+    <string name="settings_title">Article Settings</string>
+
+    <!-- Strings For Order-By Preference [CHAR LIMIT=30] -->
+    <string name="settings_order_by_label">Order By</string>
+    <string name="settings_order_by_key" translatable="false">order_by</string>
+    <string name="settings_order_by_default" translatable="false">@string/settings_order_by_section_value</string>
+
+    <!-- Label for order-by section [CHAR LIMIT=20] -->
+    <string name="settings_order_by_section_label">Section</string>
+    <string name="settings_order_by_section_value" translatable="false">section</string>
+
+    <!-- Strings For Number of Articles Preference [CHAR LIMIT=30] -->
+    <string name="settings_number_of_articles_label">Number of articles</string>
+    <string name="settings_number_of_articles_key" translatable="false">page-size</string>
+    <string name="settings_number_of_articles_default" translatable="false">30</string>
+
+
+    <!-- Label for order-by most recent option [CHAR LIMIT=20] -->
+    <string name="settings_order_by_most_recent_label">Most Recent</string>
+    <string name="settings_order_by_most_recent_value" translatable="false">time</string>
 </resources>
