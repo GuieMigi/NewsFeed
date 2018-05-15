@@ -26,6 +26,10 @@ public class SettingsActivity extends AppCompatActivity {
             // The number of articles preference.
             Preference numberOfArticles = findPreference(getString(R.string.settings_number_of_articles_key));
             bindPreferenceSummaryToValue(numberOfArticles);
+
+            // The order by preference.
+            Preference orderBy = findPreference(getString(R.string.settings_order_by_key));
+            bindPreferenceSummaryToValue(orderBy);
         }
 
         @Override

@@ -92,17 +92,22 @@ public class ArticleActivity extends AppCompatActivity implements LoaderManager.
                 getString(R.string.settings_number_of_articles_key),
                 getString(R.string.settings_number_of_articles_default));
 
+        String orderBy = sharedPreferences.getString(
+                getString(R.string.settings_order_by_key),
+                getString(R.string.settings_order_by_default));
+
         // Parse breaks apart the URI string that's passed into its parameter.
         Uri baseUri = Uri.parse(guardianJsonQueryLink);
 
         // buildUpon prepares the baseUri that we just parsed so we can add query parameters to it.
         Uri.Builder uriBuilder = baseUri.buildUpon();
 
-        // Append query parameter and its value. For example, the `format=geojson`.
+        // Append query parameter and its value. For example, the `format=json`.
         uriBuilder.appendQueryParameter("format", "json");
-        uriBuilder.appendQueryParameter("from-date", "2018-05-12");
+        uriBuilder.appendQueryParameter("from-date", "2018-05-01");
         uriBuilder.appendQueryParameter("total", "500");
         uriBuilder.appendQueryParameter("show-tags", "contributor");
+        uriBuilder.appendQueryParameter("order-by", orderBy);
         uriBuilder.appendQueryParameter(getString(R.string.settings_number_of_articles_key), numberOfArticles);
         uriBuilder.appendQueryParameter(getString(R.string.guardian_api_key),
                 getString(R.string.guardian_api_key_value));
