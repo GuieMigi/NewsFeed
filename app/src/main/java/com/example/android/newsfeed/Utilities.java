@@ -146,18 +146,19 @@ public class Utilities {
                 // Extract “tags” JSONArray.
                 JSONArray tagsJsonArray = currentArticle.getJSONArray("tags");
 
-                // Loop through each result in the array.
-                for (int j = 0; j < 1; j++) {
-                    JSONObject currentArticleAuthor = tagsJsonArray.getJSONObject(j);
-                    // Extract "webTitle" for the author of the article.
-                    String author = currentArticleAuthor.getString("webTitle");
+                // The string that holds the authors name.
+                String author = "";
 
+                // Check if the tags array is populated.
+                if (tagsJsonArray.length() > 0) {
+                    JSONObject currentArticleAuthor = tagsJsonArray.getJSONObject(0);
+                    // Extract "webTitle" for the author of the article.
+                    author = currentArticleAuthor.getString("webTitle");
+                }
                     // Create Article java object from the section, title, date, author and webpage.
                     Article article = new Article(section, title, date, author, webpage);
                     // Add article to the list of articles.
                     articles.add(article);
-                }
-
             }
         } catch (JSONException e) {
             // If an error is thrown when executing any of the above statements in the "try" block,
