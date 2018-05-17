@@ -1,5 +1,6 @@
 package com.example.android.newsfeed;
 
+import android.content.res.Resources;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -37,7 +38,7 @@ public class Utilities {
         try {
             jsonResponse = makeHttpRequest(url);
         } catch (IOException e) {
-            Log.e(LOG_TAG, "Input stream error", e);
+            Log.e(LOG_TAG, Resources.getSystem().getString(R.string.htttp_request_io_exception), e);
         }
 
         // Extract relevant fields from the JSON response and create an Article object.
@@ -51,7 +52,7 @@ public class Utilities {
         try {
             url = new URL(stringUrl);
         } catch (MalformedURLException e) {
-            Log.e(LOG_TAG, "Error creating URL ", e);
+            Log.e(LOG_TAG, Resources.getSystem().getString(R.string.malformed_url_exception), e);
         }
         return url;
     }
@@ -79,10 +80,10 @@ public class Utilities {
                 inputStream = urlConnection.getInputStream();
                 jsonResponse = readFromStream(inputStream);
             } else {
-                Log.e(LOG_TAG, "Error response code: " + urlConnection.getResponseCode());
+                Log.e(LOG_TAG, Resources.getSystem().getString(R.string.url_connection_response_code_error) + urlConnection.getResponseCode());
             }
         } catch (IOException e) {
-            Log.e(LOG_TAG, "Problem retrieving the Article JSON results.", e);
+            Log.e(LOG_TAG, Resources.getSystem().getString(R.string.url_connection_io_exception), e);
         } finally {
             if (urlConnection != null) {
                 urlConnection.disconnect();
@@ -163,7 +164,7 @@ public class Utilities {
         } catch (JSONException e) {
             // If an error is thrown when executing any of the above statements in the "try" block,
             // print a log message with the message from the exception.
-            Log.e(LOG_TAG, "Problem parsing the article JSON results", e);
+            Log.e(LOG_TAG, Resources.getSystem().getString(R.string.parse_json_response_json_exception), e);
         }
         // Return the list of articles.
         return articles;

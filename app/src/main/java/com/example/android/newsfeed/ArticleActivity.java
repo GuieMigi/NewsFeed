@@ -103,11 +103,11 @@ public class ArticleActivity extends AppCompatActivity implements LoaderManager.
         Uri.Builder uriBuilder = baseUri.buildUpon();
 
         // Append query parameter and its value. For example, the `format=json`.
-        uriBuilder.appendQueryParameter("format", "json");
-        uriBuilder.appendQueryParameter("from-date", "2018-05-01");
-        uriBuilder.appendQueryParameter("total", "500");
-        uriBuilder.appendQueryParameter("show-tags", "contributor");
-        uriBuilder.appendQueryParameter("order-by", orderBy);
+        uriBuilder.appendQueryParameter(getString(R.string.format_key), getString(R.string.format_value));
+        uriBuilder.appendQueryParameter(getString(R.string.from_date_key), getString(R.string.from_date_value));
+        uriBuilder.appendQueryParameter(getString(R.string.total_key), getString(R.string.total_value));
+        uriBuilder.appendQueryParameter(getString(R.string.show_tags_key), getString(R.string.show_tags_value));
+        uriBuilder.appendQueryParameter(getString(R.string.order_by_key), orderBy);
         uriBuilder.appendQueryParameter(getString(R.string.settings_number_of_articles_key), numberOfArticles);
         uriBuilder.appendQueryParameter(getString(R.string.guardian_api_key),
                 getString(R.string.guardian_api_key_value));

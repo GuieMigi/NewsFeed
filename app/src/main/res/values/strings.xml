@@ -41,4 +41,22 @@
     <string name="settings_filter_by_section_label">Section</string>
     <string name="settings_filter_by_section_value" translatable="false">section</string>
 
+    <!-- uriBuilder strings -->
+    <string name="format_key">format</string>
+    <string name="format_value">json</string>
+    <string name="from_date_key">from-date</string>
+    <string name="from_date_value">2018-05-01</string>
+    <string name="total_key">total</string>
+    <string name="total_value">500</string>
+    <string name="show_tags_key">show-tags</string>
+    <string name="show_tags_value">contributor</string>
+    <string name="order_by_key">order-by</string>
+
+    <!-- Log error messages for the exceptions -->
+    <string name="htttp_request_io_exception">Input stream error</string>
+    <string name="malformed_url_exception">Error creating URL </string>
+    <string name="url_connection_response_code_error">Error response code: </string>
+    <string name="url_connection_io_exception">Problem retrieving the Article JSON results.</string>
+    <string name="parse_json_response_json_exception">Problem parsing the article JSON results</string>
+
 </resources>
