@@ -2,12 +2,12 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     android:title="@string/settings_title">
 
-    <EditTextPreference
-        android:defaultValue="@string/settings_number_of_articles_default"
-        android:inputType="number"
-        android:key="@string/settings_number_of_articles_key"
-        android:selectAllOnFocus="true"
-        android:title="@string/settings_number_of_articles_label"></EditTextPreference>
+    <ListPreference
+        android:defaultValue="@string/settings_filter_by_section_default"
+        android:entries="@array/settings_filter_by_labels"
+        android:entryValues="@array/settings_filter_by_values"
+        android:key="@string/settings_filter_by_section_key"
+        android:title="@string/settings_filter_by_section_label"></ListPreference>
 
     <ListPreference
         android:defaultValue="@string/settings_order_by_default"
@@ -15,5 +15,12 @@
         android:entryValues="@array/settings_order_by_values"
         android:key="@string/settings_order_by_key"
         android:title="@string/settings_order_by_label"></ListPreference>
+
+    <EditTextPreference
+        android:defaultValue="@string/settings_number_of_articles_default"
+        android:inputType="number"
+        android:key="@string/settings_number_of_articles_key"
+        android:selectAllOnFocus="true"
+        android:title="@string/settings_number_of_articles_label"></EditTextPreference>
 
 </PreferenceScreen>

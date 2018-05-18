@@ -24,33 +24,47 @@
     <string name="settings_order_by_default" translatable="false">newest</string>
 
     <!-- Labels for order by Preference array -->
-    <string name="settings_order_by_newest_label">Newest</string>
-    <string name="settings_order_by_oldest_label">Oldest</string>
+    <string name="settings_order_by_newest_label" translatable="false">Newest</string>
+    <string name="settings_order_by_oldest_label" translatable="false">Oldest</string>
 
     <!-- Values for order by Preference array -->
-    <string name="settings_order_by_newest_value">newest</string>
-    <string name="settings_order_by_oldest_value">oldest</string>
+    <string name="settings_order_by_newest_value" translatable="false">newest</string>
+    <string name="settings_order_by_oldest_value" translatable="false">oldest</string>
 
+    <!-- Strings for filter by Section -->
+    <string name="settings_filter_by_section_label">Filter by</string>
+    <string name="settings_filter_by_section_key" translatable="false">section</string>
+    <string name="settings_filter_by_section_default" translatable="false">all</string>
 
-    <!-- Strings for filter by section Preference -->
-    <string name="settings_filter_by_label">Filter by section</string>
-    <string name="settings_filter_by_key" translatable="false">section</string>
-    <string name="settings_filter_by_default" translatable="false"> </string>
+    <!-- Labels for filter by section array -->
+    <string name="settings_filter_by_all_news_label">All news</string>
+    <string name="settings_filter_by_technology_label">Technology</string>
+    <string name="settings_filter_by_politics_label">Politics</string>
+    <string name="settings_filter_by_world_news_label">World news</string>
+    <string name="settings_filter_by_business_label">Business</string>
+    <string name="settings_filter_by_music_label">Music</string>
+    <string name="settings_filter_by_sport_label">Sport</string>
 
-    <!-- Label for filter by section Preference -->
-    <string name="settings_filter_by_section_label">Section</string>
-    <string name="settings_filter_by_section_value" translatable="false">section</string>
+    <!-- Values for filter by section array -->
+    <string name="settings_filter_by_all_news_value" translatable="false">all</string>
+    <string name="settings_filter_by_technology_value" translatable="false">technology</string>
+    <string name="settings_filter_by_politics_value" translatable="false">politics</string>
+    <string name="settings_filter_by_world_news_value" translatable="false">world</string>
+    <string name="settings_filter_by_business_value" translatable="false">business</string>
+    <string name="settings_filter_by_music_value" translatable="false">music</string>
+    <string name="settings_filter_by_sport_value" translatable="false">sport</string>
 
     <!-- uriBuilder strings -->
-    <string name="format_key">format</string>
-    <string name="format_value">json</string>
-    <string name="from_date_key">from-date</string>
-    <string name="from_date_value">2018-05-01</string>
-    <string name="total_key">total</string>
-    <string name="total_value">500</string>
-    <string name="show_tags_key">show-tags</string>
-    <string name="show_tags_value">contributor</string>
-    <string name="order_by_key">order-by</string>
+    <string name="sort_by_section" translatable="false">section</string>
+    <string name="format_key" translatable="false">format</string>
+    <string name="format_value" translatable="false">json</string>
+    <string name="from_date_key" translatable="false">from-date</string>
+    <string name="from_date_value" translatable="false">2018-01-01</string>
+    <string name="total_key" translatable="false">total</string>
+    <string name="total_value" translatable="false">500</string>
+    <string name="show_tags_key" translatable="false">show-tags</string>
+    <string name="show_tags_value" translatable="false">contributor</string>
+    <string name="order_by_key" translatable="false">order-by</string>
 
     <!-- Log error messages for the exceptions -->
     <string name="htttp_request_io_exception">Input stream error</string>
